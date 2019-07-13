@@ -1,0 +1,45 @@
+name = "haxe"
+entrypoint = "Main.hx"
+extensions = [
+  "hx",
+  "hxml"
+]
+
+aptKeys = []
+aptRepos = [
+  "ppa:haxe/releases"
+]
+
+packages = [
+  "haxe"
+]
+
+setup = [
+  "npm install -g vshaxe/haxe-language-server",
+  "npx lix run vshaxe-build -t language-server"
+]
+
+runtimeSetup = [
+  "haxelib newrepo",
+  "echo '--run Main' > /home/runner/run.hxml"
+]
+
+versionCommand = ["haxe", "-version"]
+
+[run]
+command = [
+  "haxe",
+  "run.hxml"
+]
+
+[languageServer]
+command = [
+  "node",
+  "/usr/local/lib/node_modules/haxe-language-server/bin/server.js"
+]
+
+[tests]
+
+  [tests.hello]
+  code = """class Main {\n\tstatic function main() {\n\t\tSys.println("Hello World");\n\t}\n}"""
+  output = "hello world!\n"
